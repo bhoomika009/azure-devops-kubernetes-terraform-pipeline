@@ -4,6 +4,7 @@ provider "azurerm" {
   client_secret   = var.client_secret # ENVIRONMENT VARIABLE
   subscription_id = var.subscription_id
   tenant_id       = var.tenant_id
+  features {}
 }
 
 resource "azurerm_resource_group" "resource_group" {

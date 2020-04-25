@@ -15,7 +15,7 @@ steps:
   inputs:
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
-    commandOptions: '-var client_id=${client_id} -var client_secret=${client_secret} -var ssh_public_key=${publicKey.secureFilePath}'
+   # commandOptions: '-var client_id=${client_id} -var client_secret=${client_secret} -var ssh_public_key=${publicKey.secureFilePath}'
     backendType: 'azurerm'
     backendServiceArm: 'azure_poc'
     ensureBackend: true
@@ -24,3 +24,9 @@ steps:
     backendAzureRmStorageAccountName: 'storageaccbhoomi'
     backendAzureRmContainerName: 'storageaccbhoomicontainer'
     backendAzureRmKey: 'kubernetes-dev.tfstate'
+- task: TerraformCLI@0
+  inputs:
+    command: 'apply'
+    environmentServiceName: 'azure_poc'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+    commandOptions: '-var client_id=${client_id} -var client_secret=${client_secret} -var ssh_public_key=${publicKey.secureFilePath}'

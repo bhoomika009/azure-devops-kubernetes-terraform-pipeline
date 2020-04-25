@@ -1,0 +1,26 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: echo Bhoomika k8 Azure terraform!
+  displayName: 'Run a one-line script'
+- task: DownloadSecureFile@1
+  name: publicKey
+  inputs:
+    secureFile: 'azure_rsa.pub'
+- task: TerraformCLI@0
+  inputs:
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+    commandOptions: '-var client_id=${client_id} - var client_secret=${client_secret} -var ssh_public_key=${publicKey.secureFilePath}'
+    backendType: 'azurerm'
+    backendServiceArm: 'azure_poc'
+    ensureBackend: true
+    backendAzureRmResourceGroupName: 'terraform-rg'
+    backendAzureRmResourceGroupLocation: 'westeurope'
+    backendAzureRmStorageAccountName: 'storage_acc_bhoomi'
+    backendAzureRmContainerName: 'storage_acc_bhoomi_container'
+    backendAzureRmKey: 'kubernete-dev.tfstate'

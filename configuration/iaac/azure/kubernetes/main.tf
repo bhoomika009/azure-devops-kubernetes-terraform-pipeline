@@ -30,8 +30,8 @@ resource "azurerm_kubernetes_cluster" "terraform-k8s" {
   }
 
   service_principal {
-    client_id     = var.client_id
-    client_secret = var.client_secret
+    client_id     = "968ad5d6-4507-4dc6-a939-e888af013faa"
+    client_secret = "1e2bc0be-833a-4ec6-90cd-312342e5a64f"
   }
 
   tags = {
